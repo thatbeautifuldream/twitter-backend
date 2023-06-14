@@ -1,8 +1,9 @@
 import * as dotenv from "dotenv";
 import express from "express";
-import { connect } from "./config/database.js";
-// import { Tweet } from "./models/tweet.js";
-import { Hashtag } from "./models/hashtag.js";
+import connect from "./config/database.js";
+import TweetRepository from "./repository/tweetRepository.js";
+// import Tweet from "./models/tweet.js";
+// import Hashtag from "./models/hashtag.js";
 
 dotenv.config();
 const app = express();
@@ -19,8 +20,12 @@ app.listen(3000, async () => {
   //   comment: "This is my first comment",
   // });
 
-  Hashtag.create({
-    text: "myfirsthashtag",
-    tweets: ["6489ebfc9b67487d2e71eb25"],
-  });
+  // Hashtag.create({
+  //   text: "myfirsthashtag",
+  //   tweets: ["6489ebfc9b67487d2e71eb25"],
+  // });
+
+  const tweetRepo = new TweetRepository();
+  let tweets = await tweetRepo.getAllTweets();
+  console.log(tweets);
 });
